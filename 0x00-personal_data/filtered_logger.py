@@ -26,7 +26,7 @@ def filter_datum(fields, redaction, message, separator):
     return message
 
 
-def main:
+def main():
     fields = ["password", "date_of_birth"]
     mail = "email=eggmin@eggsample.com"
     birthday = "date_of_birth=03/04/1993"
