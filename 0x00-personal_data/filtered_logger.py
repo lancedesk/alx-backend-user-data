@@ -26,7 +26,7 @@ def filter_datum(fields, redaction, message, separator):
     return message
 
 
-if __name__ == "__main__":
+def main:
     fields = ["password", "date_of_birth"]
     mail = "email=eggmin@eggsample.com"
     birthday = "date_of_birth=03/04/1993"
@@ -38,3 +38,7 @@ if __name__ == "__main__":
 
     for message in messages:
         print(filter_datum(fields, 'xxx', message, ';'))
+
+
+if __name__ == "__main__":
+    main()
