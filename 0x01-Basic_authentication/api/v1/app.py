@@ -29,24 +29,18 @@ def before_request():
     """
     Handle user authentication before resource access
     """
-    paths = ['/api/v1/forbidden/', '/api/v1/unauthorized/',
-             '/api/v1/status/']
-    if auth is None:
-        return
-    if auth.require_auth(request.path, paths) is False:
-        return
-    if auth.authorization_header(request) is None:
-        abort(401)
-    if auth.current_user(request) is None:
-        abort(403)
+    if auth:
+        paths = ['/api/v1/status/',
+                 '/api/v1/unauthorized/',
+                 '/api/v1/forbidden/']
 
-
-@app.errorhandler(404)
-def not_found(error) -> str:
-    """
-    Handle not found
-    """
-    return jsonify({"error": "Not found"}), 404
+        if auth.require_auth(request.path, paths):
+            auth_header = auth.authorization_header(request)
+            user = auth.current_user(request)
+            if auth_header is None:
+                abort(401)
+            if user is None:
+                abort(403)
 
 
 @app.errorhandler(401)
@@ -63,6 +57,14 @@ def forbidden(error) -> str:
     Handle forbidden
     """
     return jsonify({"error": "Forbidden"}), 403
+
+
+@app.errorhandler(404)
+def not_found(error) -> str:
+    """
+    Handle not found
+    """
+    return jsonify({"error": "Not found"}), 404
 
 
 if __name__ == "__main__":
