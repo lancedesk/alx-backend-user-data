@@ -20,19 +20,15 @@ Check AUTH_TYPE
 if getenv('AUTH_TYPE') == 'auth':
     from api.v1.auth.auth import Auth
     auth = Auth()
-
 elif getenv('AUTH_TYPE') == 'basic_auth':
     from api.v1.auth.basic_auth import BasicAuth
     auth = BasicAuth()
-
 elif getenv('AUTH_TYPE') == 'session_auth':
     from api.v1.auth.session_auth import SessionAuth
     auth = SessionAuth()
-
 elif getenv('AUTH_TYPE') == 'session_exp_auth':
     from api.v1.auth.session_exp_auth import SessionExpAuth
     auth = SessionExpAuth()
-
 elif getenv('AUTH_TYPE') == 'session_db_auth':
     from api.v1.auth.session_db_auth import SessionDBAuth
     auth = SessionDBAuth()
@@ -48,8 +44,7 @@ def not_found(error) -> str:
 
 @app.errorhandler(401)
 def unauthorized(error) -> str:
-    """
-    Handle a case of unautorized access
+    """ Unauthorized handler
     """
     return jsonify({"error": "Unauthorized"}), 401
 
